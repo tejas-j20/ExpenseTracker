@@ -121,4 +121,62 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
         db.close();
         return total;
     }
+    // Get transactions filtered by type ("Income" or "Expense")
+    public List<Transaction> getTransactionsByType(String type) {
+        List<Transaction> transactions = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_TRANSACTIONS,
+                new String[]{COLUMN_ID, COLUMN_AMOUNT, COLUMN_CATEGORY,
+                        COLUMN_TYPE, COLUMN_DATE, COLUMN_DESCRIPTION},
+                COLUMN_TYPE + " = ?",
+                new String[]{type},
+                null, null, COLUMN_DATE + " DESC");
+
+        if (cursor.moveToFirst()) {
+            do {
+                transactions.add(new Transaction(
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)),
+                        cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_AMOUNT)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CATEGORY)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TYPE)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DESCRIPTION))
+                ));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return transactions;
+    }
+
+    // Get transactions filtered by month (format: "YYYY-MM")
+    public List<Transaction> getTransactionsByMonth(String yearMonth) {
+        List<Transaction> transactions = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_TRANSACTIONS,
+                new String[]{COLUMN_ID, COLUMN_AMOUNT, COLUMN_CATEGORY,
+                        COLUMN_TYPE, COLUMN_DATE, COLUMN_DESCRIPTION},
+                COLUMN_DATE + " LIKE ?",
+                new String[]{yearMonth + "%"},
+                null, null, COLUMN_DATE + " DESC");
+
+        if (cursor.moveToFirst()) {
+            do {
+                transactions.add(new Transaction(
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)),
+                        cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_AMOUNT)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CATEGORY)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TYPE)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DESCRIPTION))
+                ));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return transactions;
+    }
+
 }

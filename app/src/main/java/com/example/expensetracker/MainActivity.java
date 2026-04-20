@@ -3,6 +3,7 @@ package com.example.expensetracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +33,11 @@ public class MainActivity extends AppCompatActivity implements TransactionAdapte
         tvEmptyState = findViewById(R.id.emptyState);
         fabAdd = findViewById(R.id.fabAdd);
 
+        Button btnHistory = findViewById(R.id.btnHistory);
+        btnHistory.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, HistoryActivity.class));
+        });
+
         // Setup database
         dbHelper = new ExpenseDbHelper(this);
 
@@ -43,11 +49,14 @@ public class MainActivity extends AppCompatActivity implements TransactionAdapte
         // Load transactions
         loadTransactions();
 
+
+
         // Setup FAB click listener
         fabAdd.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddTransactionActivity.class);
             startActivityForResult(intent, 1);
         });
+
     }
 
     private void loadTransactions() {
@@ -93,8 +102,28 @@ public class MainActivity extends AppCompatActivity implements TransactionAdapte
 
     @Override
     public void onTransactionLongClick(Transaction transaction) {
-        // Handle long click - delete transaction
-        dbHelper.deleteTransaction(transaction.getId());
-        loadTransactions();
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Delete Transaction")
+                .setMessage("Are you sure you want to delete this transaction?\n\n"
+                        + "📁 " + transaction.getCategory() + "\n"
+                        + "💰 ₹" + String.format("%.2f", transaction.getAmount()))
+                .setPositiveButton("Delete", (dialog, which) -> {
+                    dbHelper.deleteTransaction(transaction.getId());
+                    loadTransactions();
+                    showDeleteSuccessMessage();
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .show();
     }
+    private void showDeleteSuccessMessage() {
+        android.widget.Toast.makeText(
+                this,
+                "Transaction deleted successfully",
+                android.widget.Toast.LENGTH_SHORT
+        ).show();
+    }
+
+
 }
