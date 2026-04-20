@@ -178,5 +178,93 @@ public class ExpenseDbHelper extends SQLiteOpenHelper {
         db.close();
         return transactions;
     }
+    // Get spending grouped by category (Expense only)
+    public List<String[]> getCategoryWiseExpense() {
+        List<String[]> result = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT " + COLUMN_CATEGORY + ", SUM(" + COLUMN_AMOUNT + ") as total " +
+                        "FROM " + TABLE_TRANSACTIONS +
+                        " WHERE " + COLUMN_TYPE + " = 'Expense' " +
+                        "GROUP BY " + COLUMN_CATEGORY +
+                        " ORDER BY total DESC", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String category = cursor.getString(0);
+                String total    = String.valueOf(cursor.getDouble(1));
+                result.add(new String[]{category, total});
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return result;
+    }
+
+    // Get monthly totals for last 6 months
+    public List<String[]> getMonthlyTotals() {
+        List<String[]> result = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT substr(" + COLUMN_DATE + ", 1, 7) as month, " +
+                        COLUMN_TYPE + ", SUM(" + COLUMN_AMOUNT + ") as total " +
+                        "FROM " + TABLE_TRANSACTIONS +
+                        " GROUP BY month, " + COLUMN_TYPE +
+                        " ORDER BY month DESC LIMIT 12", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                result.add(new String[]{
+                        cursor.getString(0), // month  e.g. "2025-04"
+                        cursor.getString(1), // type
+                        String.valueOf(cursor.getDouble(2)) // total
+                });
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return result;
+    }
+
+    // Get transaction count for the current month
+    public int getThisMonthTransactionCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Calendar cal = Calendar.getInstance();
+        String yearMonth = String.format("%d-%02d",
+                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1);
+
+        Cursor cursor = db.rawQuery(
+                "SELECT COUNT(*) FROM " + TABLE_TRANSACTIONS +
+                        " WHERE " + COLUMN_DATE + " LIKE ?",
+                new String[]{yearMonth + "%"});
+
+        int count = 0;
+        if (cursor.moveToFirst()) count = cursor.getInt(0);
+        cursor.close();
+        db.close();
+        return count;
+    }
+
+    // Get distinct active months (for streak calculation)
+    public List<String> getDistinctActiveMonths() {
+        List<String> months = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT DISTINCT substr(" + COLUMN_DATE + ", 1, 7) " +
+                        "FROM " + TABLE_TRANSACTIONS +
+                        " ORDER BY 1 DESC", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                months.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return months;
+    }
 
 }
