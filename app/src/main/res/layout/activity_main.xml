@@ -50,6 +50,25 @@
                 android:textSize="13sp"
                 android:paddingHorizontal="14dp"/>
 
+            <Button
+                android:id="@+id/btnInsights"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="💡 Insights"
+                android:backgroundTint="#6200EE"
+                android:textColor="#FFFFFF"
+                android:layout_margin="8dp"/>
+
+            <Button
+                android:id="@+id/btnStreak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔥 Streak"
+                android:backgroundTint="#FF6F00"
+                android:textColor="#FFFFFF"
+                android:layout_margin="8dp"/>
+
+
             <!-- Income and Expense Row -->
             <LinearLayout
                 android:layout_width="match_parent"

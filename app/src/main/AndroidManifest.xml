@@ -26,6 +26,15 @@
             android:name=".HistoryActivity"
             android:label="History"
             android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".InsightsActivity"
+            android:label="Smart Insights"
+            android:parentActivityName=".MainActivity"/>
+
+        <activity
+            android:name=".StreakActivity"
+            android:label="Monthly Streak"
+            android:parentActivityName=".MainActivity"/>
 
     </application>
 

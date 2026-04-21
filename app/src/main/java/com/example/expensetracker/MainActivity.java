@@ -38,6 +38,17 @@ public class MainActivity extends AppCompatActivity implements TransactionAdapte
             startActivity(new Intent(MainActivity.this, HistoryActivity.class));
         });
 
+        Button btnInsights = findViewById(R.id.btnInsights);
+        btnInsights.setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, InsightsActivity.class))
+        );
+
+        Button btnStreak = findViewById(R.id.btnStreak);
+        btnStreak.setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, StreakActivity.class))
+        );
+
+
         // Setup database
         dbHelper = new ExpenseDbHelper(this);
 
