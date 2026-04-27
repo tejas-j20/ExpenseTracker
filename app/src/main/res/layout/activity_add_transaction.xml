@@ -1,55 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F5F5F5">
 
-    <!-- Toolbar -->
+    <!-- ✅ Toolbar — R.id.toolbar -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="Add Transaction" />
+        android:background="#6200EE"
+        app:titleTextColor="#FFFFFF"
+        app:navigationIconTint="#FFFFFF"/>
 
+    <!-- Scrollable Form -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="16dp">
 
-            <!-- Amount Input -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="Amount"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAmount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Transaction Type -->
+            <!-- ============================== -->
+            <!--         AMOUNT FIELD           -->
+            <!-- ============================== -->
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount (₹)"
+                android:textColor="#212121"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp"/>
+
+            <!-- ✅ etAmount — R.id.etAmount -->
+            <EditText
+                android:id="@+id/etAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Type"
+                android:hint="Enter amount"
+                android:inputType="numberDecimal"
+                android:background="@drawable/rounded_edittext"
+                android:padding="14dp"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="16dp"/>
 
+            <!-- ============================== -->
+            <!--      INCOME / EXPENSE TOGGLE   -->
+            <!-- ============================== -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transaction Type"
+                android:textColor="#212121"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp"/>
+
+            <!-- ✅ rgType — R.id.rgType -->
             <RadioGroup
                 android:id="@+id/rgType"
                 android:layout_width="match_parent"
@@ -57,83 +73,115 @@
                 android:orientation="horizontal"
                 android:layout_marginBottom="16dp">
 
+                <!-- ✅ rbIncome — R.id.rbIncome -->
                 <RadioButton
                     android:id="@+id/rbIncome"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Income"
-                    android:layout_marginEnd="24dp" />
+                    android:textColor="#212121"
+                    android:buttonTint="#4CAF50"
+                    android:checked="true"/>
 
+                <!-- ✅ rbExpense — R.id.rbExpense -->
                 <RadioButton
                     android:id="@+id/rbExpense"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Expense"
-                    android:checked="true" />
+                    android:textColor="#212121"
+                    android:buttonTint="#F44336"/>
+
             </RadioGroup>
 
-            <!-- Category -->
+            <!-- ============================== -->
+            <!--         CATEGORY SPINNER       -->
+            <!-- ============================== -->
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Category"
-                android:textSize="16sp"
+                android:textColor="#212121"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="4dp"/>
 
+            <!-- ✅ spinnerCategory — R.id.spinnerCategory -->
             <Spinner
                 android:id="@+id/spinnerCategory"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edittext"
+                android:padding="14dp"
+                android:layout_marginBottom="16dp"/>
 
-            <!-- Date -->
+            <!-- ============================== -->
+            <!--           DATE PICKER          -->
+            <!-- ============================== -->
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Date"
-                android:textSize="16sp"
+                android:textColor="#212121"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="4dp"/>
 
+            <!-- ✅ tvDate — R.id.tvDate -->
             <TextView
                 android:id="@+id/tvDate"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@drawable/border_box"
-                android:gravity="center_vertical"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:text="Select Date"
-                android:textSize="16sp"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_marginBottom="16dp" />
-
-            <!-- Description -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:hint="Description (Optional)"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:hint="Select date"
+                android:textSize="15sp"
+                android:textColor="#212121"
+                android:background="@drawable/rounded_edittext"
+                android:padding="14dp"
+                android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+                android:layout_marginBottom="16dp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text|textCapSentences" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <!-- ============================== -->
+            <!--       DESCRIPTION FIELD        -->
+            <!-- ============================== -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description (Optional)"
+                android:textColor="#212121"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp"/>
 
-            <!-- Save Button -->
+            <!-- ✅ etDescription — R.id.etDescription -->
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:hint="Add a note..."
+                android:inputType="textMultiLine"
+                android:gravity="top"
+                android:background="@drawable/rounded_edittext"
+                android:padding="14dp"
+                android:textSize="15sp"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- ============================== -->
+            <!--           SAVE BUTTON          -->
+            <!-- ============================== -->
+
+            <!-- ✅ btnSave — R.id.btnSave -->
             <Button
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:text="Save Transaction"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                style="@style/Widget.MaterialComponents.Button" />
+                android:backgroundTint="#6200EE"
+                android:layout_marginBottom="16dp"/>
 
         </LinearLayout>
     </ScrollView>

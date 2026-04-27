@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -29,23 +31,23 @@
             android:text="Month:"
             android:textStyle="bold"
             android:textColor="#424242"
-            android:marginEnd="8dp"/>
+            android:layout_marginEnd="8dp"/>
 
         <Spinner
             android:id="@+id/spinnerInsightMonth"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/spinner_background"
             android:padding="8dp"/>
+
     </LinearLayout>
 
     <!-- Hero Summary Card -->
     <androidx.cardview.widget.CardView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="6dp"
@@ -80,17 +82,20 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="12dp">
 
+                <!-- Income -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="INCOME"
                         android:textColor="#CE93D8"
                         android:textSize="11sp"/>
+
                     <TextView
                         android:id="@+id/tvSummaryIncome"
                         android:layout_width="wrap_content"
@@ -98,19 +103,23 @@
                         android:textColor="#FFFFFF"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
+
                 </LinearLayout>
 
+                <!-- Expenses -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="EXPENSES"
                         android:textColor="#CE93D8"
                         android:textSize="11sp"/>
+
                     <TextView
                         android:id="@+id/tvSummaryExpense"
                         android:layout_width="wrap_content"
@@ -118,19 +127,23 @@
                         android:textColor="#FFFFFF"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
+
                 </LinearLayout>
 
+                <!-- Save Rate -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="SAVE RATE"
                         android:textColor="#CE93D8"
                         android:textSize="11sp"/>
+
                     <TextView
                         android:id="@+id/tvSaveRate"
                         android:layout_width="wrap_content"
@@ -138,6 +151,7 @@
                         android:textColor="#FFFFFF"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -150,7 +164,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingVertical="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:clipToPadding="false"/>
 
 </LinearLayout>

@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements TransactionAdapte
         // Setup FAB click listener
         fabAdd.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddTransactionActivity.class);
-            startActivityForResult(intent, 1);
+            startActivity(intent);
         });
 
     }
