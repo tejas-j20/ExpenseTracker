@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- ✅ CORRECT — Parent is AppCompat -->
+    <style name="Base.Theme.ExpenseTracker" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#6200EE</item>
+        <item name="colorPrimaryDark">#3700B3</item>
+        <item name="colorAccent">#03DAC5</item>
+    </style>
+
+    <!-- ✅ If you want NO default ActionBar (since you use Toolbar manually) -->
+
+
+</resources>
